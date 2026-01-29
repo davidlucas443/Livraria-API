@@ -2,6 +2,7 @@ package com.estudos.livraria.service;
 
 import com.estudos.livraria.DTO.LivroRequestDto;
 import com.estudos.livraria.entity.Livro;
+import com.estudos.livraria.enums.StatusLivro;
 import com.estudos.livraria.repositories.LivroRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -53,6 +54,17 @@ public class LivroService {
         livro.setAnoDePublicacao(dto.anoDePublicacao());
         livro.setCategoria(dto.categoria());
         livro.setStatus(dto.status());
+        return livro;
+    }
+
+    public Livro emprestarPorId(Long id){
+        Livro livro = livroRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Livro não encontrado"));
+
+        if(livro.getStatus() == StatusLivro.EMPRESTADO){
+            throw new IllegalStateException("Livro já está emprestado");
+        }
+        livro.setStatus(StatusLivro.EMPRESTADO);
         return livro;
     }
 
