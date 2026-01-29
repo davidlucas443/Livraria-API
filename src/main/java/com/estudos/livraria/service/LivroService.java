@@ -8,7 +8,6 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -67,6 +66,4 @@ public class LivroService {
         livro.setStatus(StatusLivro.EMPRESTADO);
         return livro;
     }
-
-
 }
